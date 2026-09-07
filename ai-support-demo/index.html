@@ -35,20 +35,18 @@
             <div class="prompt-chip">What are your hours?</div>
             <div class="prompt-chip">What services do you offer?</div>
             <div class="prompt-chip">Can I request an appointment?</div>
-            <div class="prompt-chip">What happens if I need help?</div>
-            <div class="prompt-chip">Can I submit a support request?</div>
+            <div class="prompt-chip">How much is an oil change?</div>
+            <div class="prompt-chip">Do you work on check-engine lights?</div>
             <div class="prompt-chip">Where are you located?</div>
           </div>
           <div class="powered">AI Support Bot Demo by <strong>RunYour<span class="ai">AI</span></strong></div>
         </div>
 
         <div class="widget-stage reveal">
-          <div id="widgetMount" class="widget-mount" data-widget-key="" data-worker-origin="https://runyourai-customer-support.leighh-8d4.workers.dev">
-            <div class="demo-unavailable" id="demoUnavailable">
-              <div>
-                <h2>Live widget connection pending</h2>
-                <p>The website shell is ready and points to the verified production RunYourAI Support Worker. A dedicated public demo widget key still needs to be inserted before this page can be considered ready for prospects.</p>
-              </div>
+          <div class="demo-unavailable">
+            <div>
+              <h2>Try the live support bot</h2>
+              <p>Use the support button that appears in the lower-right corner of this page. The bot is connected to the Bluegrass Auto Care demo business and uses approved demo knowledge.</p>
             </div>
           </div>
           <p class="demo-note">This demonstration uses a fictional sample business. Appointment requests are requests only and do not automatically reserve calendar time.</p>
@@ -57,21 +55,6 @@
     </section>
   </main>
 
-  <script>
-    (() => {
-      const mount = document.getElementById('widgetMount');
-      if (!mount) return;
-      const key = (mount.dataset.widgetKey || '').trim();
-      const origin = (mount.dataset.workerOrigin || '').replace(/\/$/, '');
-      if (!key || !origin) return;
-
-      const frame = document.createElement('iframe');
-      frame.title = 'Bluegrass Auto Care customer support demo';
-      frame.src = `${origin}/widget?widget_key=${encodeURIComponent(key)}`;
-      frame.loading = 'eager';
-      frame.referrerPolicy = 'strict-origin-when-cross-origin';
-      mount.replaceChildren(frame);
-    })();
-  </script>
+  <script src="https://runyourai-customer-support.leighh-8d4.workers.dev/embed.js" data-widget-key="pub_7fc930e4-b430-45a1-b233-20caa97e86a0" defer></script>
 </body>
 </html>
