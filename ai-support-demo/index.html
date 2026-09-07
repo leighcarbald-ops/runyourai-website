@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>AI Support Bot Demo | RunYourAI</title>
+  <meta name="description" content="Try a sample RunYourAI AI Support Bot experience using a fictional demo business.">
+  <meta name="robots" content="noindex,follow">
+  <meta name="theme-color" content="#07070b">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+  <script src="../script.js" defer></script>
+</head>
+<body class="demo-page">
+  <div class="site-bg" aria-hidden="true"></div>
+  <header class="site-header">
+    <div class="shell nav-wrap">
+      <a class="logo-link" href="../" aria-label="RunYourAI home">
+        <img class="brand-logo" src="../assets/runyourai-logo.png" alt="RunYourAI — Run lean. Run smart." onerror="this.hidden=true;this.nextElementSibling.hidden=false">
+        <span class="brand-fallback" hidden>RunYour<span>AI</span></span>
+      </a>
+      <a class="btn btn-secondary" href="../#support-bot">Back to product</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="demo-hero">
+      <div class="shell demo-grid">
+        <div class="demo-business reveal">
+          <span class="demo-badge">Sample Business Demonstration</span>
+          <h1>Bluegrass Auto Care</h1>
+          <p>This is a fictional demo business created only to show how the RunYourAI support system can feel on a real local-business website. Bluegrass Auto Care is not presented as a RunYourAI customer.</p>
+          <p><strong>Try asking realistic customer questions:</strong></p>
+          <div class="prompt-grid" aria-label="Suggested demo questions">
+            <div class="prompt-chip">What are your hours?</div>
+            <div class="prompt-chip">What services do you offer?</div>
+            <div class="prompt-chip">Can I request an appointment?</div>
+            <div class="prompt-chip">What happens if I need help?</div>
+            <div class="prompt-chip">Can I submit a support request?</div>
+            <div class="prompt-chip">Where are you located?</div>
+          </div>
+          <div class="powered">AI Support Bot Demo by <strong>RunYour<span class="ai">AI</span></strong></div>
+        </div>
+
+        <div class="widget-stage reveal">
+          <div id="widgetMount" class="widget-mount" data-widget-key="" data-worker-origin="https://runyourai-customer-support.leighh-8d4.workers.dev">
+            <div class="demo-unavailable" id="demoUnavailable">
+              <div>
+                <h2>Live widget connection pending</h2>
+                <p>The website shell is ready and points to the verified production RunYourAI Support Worker. A dedicated public demo widget key still needs to be inserted before this page can be considered ready for prospects.</p>
+              </div>
+            </div>
+          </div>
+          <p class="demo-note">This demonstration uses a fictional sample business. Appointment requests are requests only and do not automatically reserve calendar time.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      const mount = document.getElementById('widgetMount');
+      if (!mount) return;
+      const key = (mount.dataset.widgetKey || '').trim();
+      const origin = (mount.dataset.workerOrigin || '').replace(/\/$/, '');
+      if (!key || !origin) return;
+
+      const frame = document.createElement('iframe');
+      frame.title = 'Bluegrass Auto Care customer support demo';
+      frame.src = `${origin}/widget?widget_key=${encodeURIComponent(key)}`;
+      frame.loading = 'eager';
+      frame.referrerPolicy = 'strict-origin-when-cross-origin';
+      mount.replaceChildren(frame);
+    })();
+  </script>
+</body>
+</html>
