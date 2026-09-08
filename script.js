@@ -18,6 +18,13 @@
     });
   }
 
+  const onHomepage = !window.location.pathname.includes('/local-visibility-audit/');
+  if (onHomepage) {
+    document.querySelectorAll('a[href="#visibility-audit"], a[href^="mailto:leighh@runyourai.pro?subject=RunYourAI%20Local%20Visibility%20Audit"]').forEach(link => {
+      link.setAttribute('href', 'local-visibility-audit/');
+    });
+  }
+
   const year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
 
