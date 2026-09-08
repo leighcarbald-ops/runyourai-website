@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>AI Support Bot Onboarding | RunYourAI</title>
+  <meta name="description" content="RunYourAI AI Customer Support Bot onboarding, payment steps, and project next steps.">
+  <meta name="theme-color" content="#07070b">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../styles.css">
+  <style>
+    .onboard{min-height:100vh}.onboard-hero{padding:120px 0 56px}.onboard-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}.step-card{border:1px solid var(--line);border-radius:22px;padding:26px;background:rgba(255,255,255,.025)}.step-card h2{margin:0 0 10px;font-size:1.55rem}.step-card p{color:var(--muted)}.step-label{font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;font-weight:800;color:#c7b0ff}.price{font-size:2.15rem;font-weight:850;margin:8px 0}.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.notice{border:1px solid rgba(155,92,255,.28);background:rgba(155,92,255,.07);border-radius:16px;padding:18px;margin:22px 0}.paid{opacity:.55}.paid:before{content:"Payment completed ✓";display:block;color:#9fd6b0;font-weight:800;margin-bottom:8px}.small{font-size:.9rem;color:var(--muted)}@media(max-width:800px){.onboard-grid{grid-template-columns:1fr}.onboard-hero{padding-top:92px}}
+  </style>
+</head>
+<body class="onboard">
+  <header class="site-header"><div class="shell nav-wrap"><a class="logo-link" href="../" aria-label="RunYourAI home"><img class="brand-logo" src="../assets/runyourai-logo.png" alt="RunYourAI — Run lean. Run smart."></a><nav class="nav-links"><a href="../">Home</a><a href="../ai-support-demo/">Demo</a></nav></div></header>
+  <main>
+    <section class="onboard-hero"><div class="shell"><div class="eyebrow">AI Customer Support Bot</div><h1>Project payments and onboarding</h1><p class="hero-lede">Use the payment step that applies to your project. RunYourAI uses a 50% setup deposit to start, the remaining 50% at delivery/go-live, and monthly service after launch.</p><div class="notice"><strong>No full-payment checkout is used.</strong><br><span class="small">The standard setup is $1,500 total. Founding clients who qualify for the first-five offer receive the $1,200 setup price. Monthly service starts at $199/month depending on the agreed configuration and support scope.</span></div></div></section>
+    <section class="section-pad section-dark"><div class="shell onboard-grid">
+      <article id="founding-deposit" class="step-card"><div class="step-label">Step 1 · Founding offer</div><h2>Founding Client Deposit</h2><div class="price">$600</div><p>50% of the discounted $1,200 setup fee. Limited to the first 5 qualifying clients.</p><a class="btn btn-primary" href="https://buy.stripe.com/7sYfZa6ANb3M46q0qr1wY05">Pay Founding Deposit</a></article>
+      <article id="standard-deposit" class="step-card"><div class="step-label">Step 1 · Standard</div><h2>Standard Project Deposit</h2><div class="price">$750</div><p>50% of the standard $1,500 setup fee.</p><a class="btn btn-primary" href="https://buy.stripe.com/4gM3co0cpgo66ey4GH1wY02">Pay Standard Deposit</a></article>
+      <article id="founding-final" class="step-card"><div class="step-label">Step 2 · Use when instructed</div><h2>Founding Final Setup Payment</h2><div class="price">$600</div><p>Remaining 50% due at delivery/go-live for an approved founding-client project.</p><a class="btn btn-secondary" href="https://buy.stripe.com/dRm00ccZb5JsfP88WX1wY06">Pay Founding Final Balance</a></article>
+      <article id="standard-final" class="step-card"><div class="step-label">Step 2 · Use when instructed</div><h2>Standard Final Setup Payment</h2><div class="price">$750</div><p>Remaining 50% due at delivery/go-live for a standard project.</p><a class="btn btn-secondary" href="https://buy.stripe.com/14AfZa6ANb3M6ey1uv1wY03">Pay Standard Final Balance</a></article>
+      <article id="monthly" class="step-card"><div class="step-label">Step 3 · After go-live</div><h2>Monthly Service</h2><div class="price">Starting at $199/month</div><p>Managed hosting, maintenance, and support according to the configuration and service scope agreed for your business.</p><a class="btn btn-primary" href="https://buy.stripe.com/dRm28k2kx2xg5au5KL1wY04">Start Monthly Service</a></article>
+      <article class="step-card"><div class="step-label">Onboarding</div><h2>What RunYourAI needs next</h2><p>After the deposit, complete the business knowledge questionnaire and website technical onboarding. RunYourAI then configures your approved knowledge, tests the widget, gets your approval, and prepares go-live.</p><div class="btn-row"><a class="btn btn-secondary" href="mailto:leighh@runyourai.pro?subject=AI%20Support%20Bot%20Onboarding">Contact RunYourAI</a><a class="btn btn-secondary" href="../ai-support-demo/">View Demo</a></div></article>
+    </div></section>
+  </main>
+  <footer class="site-footer"><div class="shell footer-grid"><div><div class="footer-brand">RunYour<span>AI</span></div><p>Run lean. Run smart.</p></div><div class="footer-links"><a href="mailto:leighh@runyourai.pro">leighh@runyourai.pro</a><a href="../privacy.html">Privacy</a></div></div></footer>
+  <script>const p=new URLSearchParams(location.search);const paid=p.get('paid');if(paid){const el=document.getElementById(paid);if(el)el.classList.add('paid');}</script>
+</body>
+</html>
