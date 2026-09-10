@@ -22,6 +22,15 @@
   const onHomepage = !path.includes('/local-visibility-audit/') && !path.includes('/ai-support-onboarding/');
 
   if (onHomepage) {
+    if (nav && !nav.querySelector('a[href="ai-support-demo/"]')) {
+      const liveDemoLink = document.createElement('a');
+      liveDemoLink.href = 'ai-support-demo/';
+      liveDemoLink.textContent = 'Live Demo';
+      const navCta = nav.querySelector('.nav-cta');
+      if (navCta) nav.insertBefore(liveDemoLink, navCta);
+      else nav.appendChild(liveDemoLink);
+    }
+
     document.querySelectorAll('a[href="#visibility-audit"], a[href^="mailto:leighh@runyourai.pro?subject=RunYourAI%20Local%20Visibility%20Audit"]').forEach(link => {
       link.setAttribute('href', 'local-visibility-audit/');
     });
