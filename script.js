@@ -20,6 +20,19 @@
 
   const path = window.location.pathname;
 
+  // On the personalized support-bot demo, visitors can enter a normal
+  // domain such as mycompany.com. Normalize it before the page's demo
+  // handler reads the value so the API still receives an absolute URL.
+  if (path.includes('/ai-support-demo/')) {
+    document.addEventListener('click', event => {
+      if (!event.target || event.target.id !== 'buildDemo') return;
+      const input = document.getElementById('businessUrl');
+      if (!input) return;
+      const value = input.value.trim();
+      if (value && !/^https?:\/\//i.test(value)) input.value = 'https://' + value;
+    }, true);
+  }
+
   if (path.includes('/local-visibility-audit/') && !path.includes('/onboarding/')) {
     document.querySelectorAll('.audit-price-card .btn-primary, .audit-hero .hero-actions .btn-primary').forEach(link => {
       link.textContent = link.closest('.audit-price-card') ? 'Choose My Audit & Pay' : 'Start My Audit';
