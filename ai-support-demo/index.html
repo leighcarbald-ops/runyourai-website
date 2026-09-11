@@ -3,19 +3,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>AI Support Bot Demo | RunYourAI</title>
-  <meta name="description" content="Try a sample RunYourAI AI Support Bot experience using a fictional demo business.">
+  <title>Personalized AI Support Bot Demo | RunYourAI</title>
+  <meta name="description" content="Paste your business website and try a temporary RunYourAI support bot grounded in public information from your own site.">
   <meta name="robots" content="noindex,follow">
   <meta name="theme-color" content="#07070b">
   <link rel="canonical" href="https://runyourai.pro/ai-support-demo/">
-  <meta property="og:title" content="AI Support Bot Demo | RunYourAI">
-  <meta property="og:description" content="Try a sample RunYourAI AI Support Bot experience using a fictional local-business demo.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://runyourai.pro/ai-support-demo/">
-  <meta property="og:image" content="https://runyourai.pro/assets/runyourai-logo.png">
   <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../styles.css">
   <script src="../script.js" defer></script>
+  <style>
+    .personal-demo{max-width:760px;margin:0 auto}.demo-builder{background:rgba(17,17,27,.88);border:1px solid rgba(167,139,250,.28);border-radius:20px;padding:22px;box-shadow:0 18px 60px rgba(0,0,0,.28)}
+    .demo-builder label{display:block;font-weight:800;margin-bottom:8px}.demo-url-row{display:flex;gap:10px;align-items:stretch}.demo-url-row input{flex:1;min-width:0;border:1px solid #3f3f52;border-radius:12px;background:#0b0b12;color:#fff;padding:13px 14px;font:inherit}.demo-url-row button{white-space:nowrap}
+    .demo-status{min-height:24px;margin:12px 0 0;color:#c4b5fd}.demo-status.error{color:#fca5a5}.demo-status.success{color:#86efac}.demo-fineprint{font-size:.9rem;color:#aaa8b5;margin-top:12px}
+    .personal-chat{display:none;margin-top:20px;background:#fff;color:#171721;border-radius:20px;overflow:hidden;box-shadow:0 18px 60px rgba(0,0,0,.3)}.personal-chat.active{display:block}.chat-head{padding:16px 18px;background:#17121f;color:#fff}.chat-head strong{display:block}.chat-head span{font-size:.88rem;color:#c4b5fd}.chat-body{height:340px;overflow:auto;padding:16px;background:#f7f7fb}.msg{max-width:86%;padding:10px 12px;border-radius:14px;margin:8px 0;line-height:1.42}.msg.bot{background:#ece9f5}.msg.user{background:#5b21b6;color:#fff;margin-left:auto}.chat-form{display:flex;gap:8px;padding:12px;border-top:1px solid #e5e7eb}.chat-form input{flex:1;min-width:0;border:1px solid #d1d5db;border-radius:11px;padding:12px;font:inherit}.chat-form button{border:0;border-radius:11px;padding:0 16px;background:#5b21b6;color:#fff;font-weight:800}.demo-prompts{display:flex;gap:8px;overflow:auto;padding:0 12px 12px;background:#fff}.demo-prompts button{border:1px solid #ddd6fe;background:#faf5ff;color:#4c1d95;border-radius:999px;padding:8px 10px;font:inherit;font-size:.86rem;white-space:nowrap}.demo-meta{padding:10px 14px;background:#fafafa;border-top:1px solid #ececec;color:#6b7280;font-size:.82rem}
+    @media(max-width:640px){.demo-url-row{flex-direction:column}.demo-url-row button{width:100%}.demo-builder{padding:16px}.chat-body{height:320px}.chat-form button{padding:0 13px}}
+  </style>
 </head>
 <body class="demo-page">
   <div class="site-bg" aria-hidden="true"></div>
@@ -31,31 +33,32 @@
 
   <main>
     <section class="demo-hero">
-      <div class="shell demo-grid">
-        <div class="demo-business reveal">
-          <span class="demo-badge">Sample Business Demonstration</span>
-          <h1>Bluegrass Auto Care</h1>
-          <p>This is a fictional demo business created only to show how the RunYourAI support system can feel on a real local-business website. Bluegrass Auto Care is not presented as a RunYourAI customer.</p>
-          <p><strong>Try asking realistic customer questions:</strong></p>
-          <div class="prompt-grid" aria-label="Suggested demo questions">
-            <div class="prompt-chip">What are your hours?</div>
-            <div class="prompt-chip">What services do you offer?</div>
-            <div class="prompt-chip">Can I request an appointment?</div>
-            <div class="prompt-chip">How much is an oil change?</div>
-            <div class="prompt-chip">Do you work on check-engine lights?</div>
-            <div class="prompt-chip">Where are you located?</div>
-          </div>
-          <div class="powered">AI Support Bot Demo by <strong>RunYour<span class="ai">AI</span></strong></div>
+      <div class="shell personal-demo">
+        <div class="reveal">
+          <span class="demo-badge">Personalized Live Demonstration</span>
+          <h1>Try the support bot with your own website.</h1>
+          <p>Paste your business website below. RunYourAI will read public information it can find on the page, build temporary grounded support knowledge, and let you ask the bot questions about your own business.</p>
         </div>
 
-        <div class="widget-stage reveal">
-          <div class="demo-unavailable">
-            <div>
-              <h2>Try the live support bot</h2>
-              <p>Use the support button that appears in the lower-right corner of this page. The bot is connected to the Bluegrass Auto Care demo business and uses approved demo knowledge.</p>
-            </div>
+        <div class="demo-builder reveal">
+          <label for="businessUrl">Your business website</label>
+          <div class="demo-url-row">
+            <input id="businessUrl" type="url" inputmode="url" autocomplete="url" placeholder="https://yourbusiness.com" maxlength="2048">
+            <button id="buildDemo" class="btn btn-primary" type="button">Build my demo</button>
           </div>
-          <p class="demo-note">This demonstration uses a fictional sample business. Appointment requests are requests only and do not automatically reserve calendar time.</p>
+          <div id="demoStatus" class="demo-status" role="status" aria-live="polite"></div>
+          <p class="demo-fineprint">This demo uses public information from the website you submit. It is temporary and is not added to a production bot. Some websites hide information behind scripts or third-party systems, so the demo may not find everything.</p>
+
+          <section id="personalChat" class="personal-chat" aria-label="Personalized support bot demo">
+            <div class="chat-head"><strong id="chatBusiness">Your Business Support</strong><span>Temporary RunYourAI demo</span></div>
+            <div id="chatBody" class="chat-body" aria-live="polite"></div>
+            <div id="demoPrompts" class="demo-prompts" aria-label="Suggested questions"></div>
+            <form id="chatForm" class="chat-form">
+              <input id="chatInput" maxlength="1000" placeholder="Ask a question about this business" autocomplete="off">
+              <button id="sendChat" type="submit">Send</button>
+            </form>
+            <div class="demo-meta">Answers are limited to public information found during this temporary demo. Production bots are reviewed and approved before going live.</div>
+          </section>
         </div>
       </div>
     </section>
@@ -69,6 +72,79 @@
     </div>
   </footer>
 
-  <script src="https://runyourai-customer-support.leighh-8d4.workers.dev/embed.js?v=2" data-widget-key="pub_edb9d410-d8e4-46e3-9490-57390a55dc67" defer></script>
+  <script>
+    (() => {
+      const API = 'https://runyourai-customer-support.leighh-8d4.workers.dev';
+      const urlInput = document.getElementById('businessUrl');
+      const buildBtn = document.getElementById('buildDemo');
+      const status = document.getElementById('demoStatus');
+      const chat = document.getElementById('personalChat');
+      const chatBody = document.getElementById('chatBody');
+      const prompts = document.getElementById('demoPrompts');
+      const chatForm = document.getElementById('chatForm');
+      const chatInput = document.getElementById('chatInput');
+      const sendBtn = document.getElementById('sendChat');
+      const chatBusiness = document.getElementById('chatBusiness');
+      let knowledge = [];
+
+      function setStatus(text, type='') { status.textContent = text; status.className = 'demo-status' + (type ? ' ' + type : ''); }
+      function addMessage(text, who) {
+        const div = document.createElement('div');
+        div.className = 'msg ' + who;
+        div.textContent = text;
+        chatBody.appendChild(div);
+        chatBody.scrollTop = chatBody.scrollHeight;
+      }
+      function friendlyError(code) {
+        const map = {
+          INVALID_WEBSITE_URL:'Please enter a valid public business website.', WEBSITE_URL_REQUIRED:'Please enter a website first.',
+          WEBSITE_HOST_NOT_ALLOWED:'That address cannot be used for this demo.', WEBSITE_FETCH_FAILED:'I could not read that website. It may block automated access or be temporarily unavailable.',
+          WEBSITE_NOT_HTML:'That address did not return a normal web page.', WEBSITE_TOO_LARGE:'That page is too large for the quick demo.', WEBSITE_HAS_TOO_LITTLE_TEXT:'I could not find enough readable business information on that page.',
+          NO_FREE_APPROVED_ROUTE:'The free AI demo service is temporarily unavailable.', NO_GROUNDED_SUGGESTIONS:'I found the page, but not enough clear business facts to build a safe demo.',
+          DEMO_RATE_LIMITED:'You have reached the temporary demo limit. Please try again later.'
+        };
+        return map[code] || 'The demo could not be created right now. Please try again.';
+      }
+
+      buildBtn.addEventListener('click', async () => {
+        const url = urlInput.value.trim();
+        if (!url) return setStatus('Enter your business website first.', 'error');
+        buildBtn.disabled = true; chat.classList.remove('active'); knowledge = []; prompts.innerHTML = ''; chatBody.innerHTML = '';
+        setStatus('Reading the public website and building temporary support knowledge…');
+        try {
+          const res = await fetch(API + '/api/demo/website', { method:'POST', headers:{'content-type':'application/json'}, body:JSON.stringify({url}) });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok) throw new Error(data.error || 'DEMO_FAILED');
+          knowledge = Array.isArray(data.knowledge) ? data.knowledge : [];
+          if (!knowledge.length) throw new Error('NO_GROUNDED_SUGGESTIONS');
+          const host = data.source_host || 'Your Business';
+          chatBusiness.textContent = host + ' Support';
+          addMessage('Hi! I built this temporary demo from public information I found on ' + host + '. Ask me a question about the business.', 'bot');
+          for (const item of knowledge.slice(0,5)) {
+            const button = document.createElement('button'); button.type='button'; button.textContent=item.title;
+            button.addEventListener('click', () => { chatInput.value=item.title; chatInput.focus(); }); prompts.appendChild(button);
+          }
+          chat.classList.add('active');
+          setStatus('Your personalized demo is ready.', 'success');
+          chat.scrollIntoView({behavior:'smooth',block:'nearest'});
+        } catch (err) { setStatus(friendlyError(err.message), 'error'); }
+        finally { buildBtn.disabled = false; }
+      });
+
+      chatForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        const message = chatInput.value.trim();
+        if (!message || !knowledge.length) return;
+        addMessage(message, 'user'); chatInput.value=''; sendBtn.disabled=true;
+        try {
+          const res = await fetch(API + '/api/demo/chat', { method:'POST', headers:{'content-type':'application/json'}, body:JSON.stringify({message,knowledge}) });
+          const data = await res.json().catch(() => ({}));
+          if (!res.ok) throw new Error(data.error || 'CHAT_FAILED');
+          addMessage(data.message || 'I could not answer that from the information found on the website.', 'bot');
+        } catch (err) { addMessage(friendlyError(err.message), 'bot'); }
+        finally { sendBtn.disabled=false; chatInput.focus(); }
+      });
+    })();
+  </script>
 </body>
 </html>
