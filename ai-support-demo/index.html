@@ -15,7 +15,7 @@
     .personal-demo{max-width:760px;margin:0 auto}.demo-builder{background:rgba(17,17,27,.88);border:1px solid rgba(167,139,250,.28);border-radius:20px;padding:22px;box-shadow:0 18px 60px rgba(0,0,0,.28)}
     .demo-builder label{display:block;font-weight:800;margin-bottom:8px}.demo-url-row{display:flex;gap:10px;align-items:stretch}.demo-url-row input{flex:1;min-width:0;border:1px solid #3f3f52;border-radius:12px;background:#0b0b12;color:#fff;padding:13px 14px;font:inherit}.demo-url-row button{white-space:nowrap}
     .demo-status{min-height:24px;margin:12px 0 0;color:#c4b5fd}.demo-status.error{color:#fca5a5}.demo-status.success{color:#86efac}.demo-fineprint{font-size:.9rem;color:#aaa8b5;margin-top:12px}
-    .demo-progress{display:flex;align-items:center;gap:10px;width:100%}.demo-progress-track{flex:1;height:12px;border-radius:999px;background:rgba(139,92,246,.16);border:1px solid rgba(167,139,250,.3);overflow:hidden;box-shadow:inset 0 0 10px rgba(0,0,0,.28)}.demo-progress-fill{height:100%;width:0;background:linear-gradient(90deg,#5b21b6,#7c3aed,#a855f7);border-radius:inherit;transition:width .32s ease;box-shadow:0 0 14px rgba(168,85,247,.55)}.demo-progress-percent{min-width:42px;text-align:right;color:#c4b5fd;font-weight:800;font-variant-numeric:tabular-nums}
+    .demo-progress{display:flex;align-items:center;gap:10px;width:100%}.demo-progress-track{flex:1;height:12px;border-radius:999px;background:rgba(139,92,246,.16);border:1px solid rgba(167,139,250,.3);overflow:hidden;box-shadow:inset 0 0 10px rgba(0,0,0,.28)}.demo-progress-fill{height:100%;width:0;background:linear-gradient(90deg,#5b21b6 0%,#7c3aed 38%,#c084fc 50%,#7c3aed 62%,#a855f7 100%);background-size:220% 100%;border-radius:inherit;transition:width .45s ease;box-shadow:0 0 14px rgba(168,85,247,.55);animation:demoProgressFlow 1.35s linear infinite}.demo-progress-percent{min-width:42px;text-align:right;color:#c4b5fd;font-weight:800;font-variant-numeric:tabular-nums}@keyframes demoProgressFlow{from{background-position:100% 0}to{background-position:-120% 0}}
     .personal-chat{display:none;margin-top:20px;background:#fff;color:#171721;border-radius:20px;overflow:hidden;box-shadow:0 18px 60px rgba(0,0,0,.3)}.personal-chat.active{display:block}.chat-head{padding:16px 18px;background:#17121f;color:#fff}.chat-head strong{display:block}.chat-head span{font-size:.88rem;color:#c4b5fd}.chat-body{height:340px;overflow:auto;padding:16px;background:#f7f7fb}.msg{max-width:86%;padding:10px 12px;border-radius:14px;margin:8px 0;line-height:1.42}.msg.bot{background:#ece9f5}.msg.user{background:#5b21b6;color:#fff;margin-left:auto}.chat-form{display:flex;gap:8px;padding:12px;border-top:1px solid #e5e7eb}.chat-form input{flex:1;min-width:0;border:1px solid #d1d5db;border-radius:11px;padding:12px;font:inherit}.chat-form button{border:0;border-radius:11px;padding:0 16px;background:#5b21b6;color:#fff;font-weight:800}.demo-prompts{display:flex;gap:8px;overflow:auto;padding:0 12px 12px;background:#fff}.demo-prompts button{border:1px solid #ddd6fe;background:#faf5ff;color:#4c1d95;border-radius:999px;padding:8px 10px;font:inherit;font-size:.86rem;white-space:nowrap}.demo-meta{padding:10px 14px;background:#fafafa;border-top:1px solid #ececec;color:#6b7280;font-size:.82rem}
     @media(max-width:640px){.demo-url-row{flex-direction:column}.demo-url-row button{width:100%}.demo-builder{padding:16px}.chat-body{height:320px}.chat-form button{padding:0 13px}}
   </style>
@@ -102,15 +102,18 @@
       }
       function startProgress() {
         if (progressTimer) clearInterval(progressTimer);
-        progressValue = 4;
+        const startedAt = Date.now();
+        progressValue = 3;
         renderProgress(progressValue);
         progressTimer = setInterval(() => {
-          const remaining = 92 - progressValue;
-          if (remaining <= 0) return;
-          const step = remaining > 45 ? 5 : remaining > 20 ? 3 : 1;
-          progressValue = Math.min(92, progressValue + step);
+          const elapsed = (Date.now() - startedAt) / 1000;
+          let target;
+          if (elapsed < 10) target = 3 + (elapsed * 5.2);
+          else if (elapsed < 30) target = 55 + ((elapsed - 10) * 1.5);
+          else target = 85 + ((elapsed - 30) * .35);
+          progressValue = Math.min(97, Math.max(progressValue, target));
           renderProgress(progressValue);
-        }, 260);
+        }, 500);
       }
       async function finishProgress() {
         if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
