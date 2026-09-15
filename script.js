@@ -57,7 +57,7 @@
 
   // Give every primary service page the same product navigation.
   const servicePages = ['/website-building/', '/ai-support/', '/appointment-scheduler/', '/local-visibility-audit/', '/review-funnel/'];
-  if (servicePages.some(page => path.includes(page)) && !path.includes('/onboarding/')) {
+  if (servicePages.some(page => path.includes(page)) && !path.includes('/purchase/')) {
     const serviceNav = document.querySelector('.nav-links');
     if (serviceNav) {
       serviceNav.innerHTML = [
@@ -92,12 +92,30 @@
     }, true);
   }
 
-  if (path.includes('/local-visibility-audit/') && !path.includes('/onboarding/')) {
+  if (path.includes('/local-visibility-audit/') && !path.includes('/purchase/')) {
     document.querySelectorAll('.audit-price-card .btn-primary, .audit-hero .hero-actions .btn-primary').forEach(link => {
-      link.textContent = link.closest('.audit-price-card') ? 'Choose My Audit & Pay' : 'Start My Audit'; link.setAttribute('href','onboarding/');
+      link.textContent = link.closest('.audit-price-card') ? 'Choose My Audit & Pay' : 'Start My Audit';
+      link.setAttribute('href','purchase/');
     });
+    const heroActions = document.querySelector('.audit-hero .hero-actions');
+    if (heroActions && !heroActions.querySelector('[data-audit-demo]')) {
+      const demo = document.createElement('a');
+      demo.className = 'btn btn-secondary';
+      demo.dataset.auditDemo = '1';
+      demo.href = '#included';
+      demo.textContent = 'Audit Demo Coming Next';
+      demo.setAttribute('aria-label','Audit demo is being connected to the live scanner');
+      heroActions.appendChild(demo);
+    }
     const paymentNote = document.querySelector('.payment-note');
-    if (paymentNote) paymentNote.innerHTML = '<strong>Payment first, then intake</strong><span>Choose the $99 founding offer if a qualifying spot remains, or the regular $149 audit. After successful Stripe checkout, you will return to the RunYourAI onboarding page to complete the intake. Optional maintenance starts at $149/month and is separate from the one-time audit.</span>';
+    if (paymentNote) paymentNote.innerHTML = '<strong>Payment, then audit intake</strong><span>Choose the $99 founding offer if a qualifying spot remains, or the regular $149 audit. After payment, complete the Audit Intake on this page so RunYourAI can begin. There is no monthly maintenance subscription for this product.</span>';
+    document.querySelectorAll('.faq-list details').forEach(item => {
+      const summary = item.querySelector('summary');
+      if (summary && summary.textContent.trim() === 'Is there a monthly fee?') {
+        const p = item.querySelector('p');
+        if (p) p.textContent = 'No. The Local Visibility Audit is a one-time purchase. If you want RunYourAI to implement recommended fixes, that work is quoted separately.';
+      }
+    });
   }
 
   const year = document.getElementById('year'); if (year) year.textContent = new Date().getFullYear();
