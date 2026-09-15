@@ -48,6 +48,22 @@
     }
   }
 
+  // Give every primary service page the same product navigation.
+  const servicePages = ['/website-building/', '/ai-support/', '/appointment-scheduler/', '/local-visibility-audit/', '/review-funnel/'];
+  if (servicePages.some(page => path.includes(page)) && !path.includes('/onboarding/')) {
+    const serviceNav = document.querySelector('.nav-links');
+    if (serviceNav) {
+      serviceNav.innerHTML = [
+        ['/', 'Home'],
+        ['/website-building/', 'Website Building'],
+        ['/ai-support/', 'AI Support'],
+        ['/appointment-scheduler/', 'Scheduler'],
+        ['/local-visibility-audit/', 'Visibility Audit'],
+        ['/review-funnel/', 'Review Funnel']
+      ].map(([href, label]) => `<a href="${href}">${label}</a>`).join('');
+    }
+  }
+
   const menuButton = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.nav-links');
   if (menuButton && nav) {
