@@ -11,6 +11,13 @@
       websiteLink.textContent = 'Website Building';
       if (aiSupport) nav.insertBefore(websiteLink, aiSupport); else nav.prepend(websiteLink);
     }
+    if (nav && !nav.querySelector('a[href="review-funnel/"]')) {
+      const liveDemo = nav.querySelector('a[href="ai-support-demo/"]');
+      const reviewLink = document.createElement('a');
+      reviewLink.href = 'review-funnel/';
+      reviewLink.textContent = 'Review Funnel';
+      if (liveDemo) nav.insertBefore(reviewLink, liveDemo); else nav.appendChild(reviewLink);
+    }
 
     const grid = document.querySelector('.solutions-grid');
     if (grid && !grid.querySelector('[data-service="website-building"]')) {
