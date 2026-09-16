@@ -1,8 +1,20 @@
 (() => {
   const path = window.location.pathname;
 
-  // Keep Website Building as the first service after Home on the main site.
-  if (path === '/' || path.endsWith('/index.html')) {
+  // Final site-wide polish: keep the full navigation usable before the phone breakpoint
+  // and use the approved purple-to-blue-to-cyan gradient treatment consistently.
+  const polish = document.createElement('style');
+  polish.textContent = `
+    .gradient-text{background:linear-gradient(90deg,#b86cff 0%,#7c5cff 38%,#4b8cff 70%,#4dd7ff 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .nav-links a{white-space:nowrap}
+    @media (min-width:761px){.nav-wrap{gap:16px}.brand-logo{width:190px}.nav-links{gap:14px}.nav-links a{font-size:.84rem}}
+    @media (min-width:761px) and (max-width:1120px){.nav-wrap{min-height:68px}.brand-logo{width:180px;max-height:48px}.menu-toggle{display:block}.nav-links{position:absolute;top:68px;left:16px;right:16px;display:none;flex-direction:column;align-items:stretch;gap:0;background:#0d0d14;border:1px solid var(--line);border-radius:16px;padding:8px;box-shadow:var(--shadow)}.nav-links.open{display:flex}.nav-links a{padding:13px 12px;border-radius:10px;font-size:.95rem}.nav-cta{margin-top:5px;text-align:center}}
+  `;
+  document.head.appendChild(polish);
+
+  // Homepage compatibility helpers. These only add a missing service if an older
+  // cached copy of the homepage is ever served; the current homepage already has them.
+  if (path === '/' || path === '/index.html') {
     const nav = document.querySelector('.nav-links');
     if (nav && !nav.querySelector('a[href="website-building/"]')) {
       const aiSupport = nav.querySelector('a[href="ai-support/"]');
@@ -50,27 +62,15 @@
     const footerLinks = document.querySelector('.footer-links');
     if (footerLinks && !footerLinks.querySelector('a[href="website-building/"]')) {
       const first = footerLinks.firstElementChild;
-      const link = document.createElement('a'); link.href='website-building/'; link.textContent='Website Building';
+      const link = document.createElement('a');
+      link.href = 'website-building/';
+      link.textContent = 'Website Building';
       footerLinks.insertBefore(link, first);
     }
   }
 
-  // Give every primary service page the same product navigation.
-  const servicePages = ['/website-building/', '/ai-support/', '/appointment-scheduler/', '/local-visibility-audit/', '/review-funnel/'];
-  if (servicePages.some(page => path.includes(page)) && !path.includes('/purchase/')) {
-    const serviceNav = document.querySelector('.nav-links');
-    if (serviceNav) {
-      serviceNav.innerHTML = [
-        ['/', 'Home'],
-        ['/website-building/', 'Website Building'],
-        ['/ai-support/', 'AI Support'],
-        ['/appointment-scheduler/', 'Scheduler'],
-        ['/local-visibility-audit/', 'Visibility Audit'],
-        ['/review-funnel/', 'Review Funnel']
-      ].map(([href, label]) => `<a href="${href}">${label}</a>`).join('');
-    }
-  }
-
+  // Mobile/tablet navigation. Do not rewrite page navigation here: each public page
+  // now owns the same complete navigation markup.
   const menuButton = document.querySelector('.menu-toggle');
   const nav = document.querySelector('.nav-links');
   if (menuButton && nav) {
@@ -80,31 +80,35 @@
       menuButton.setAttribute('aria-label', isOpen ? 'Close navigation' : 'Open navigation');
     });
     nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
-      nav.classList.remove('open'); menuButton.setAttribute('aria-expanded','false'); menuButton.setAttribute('aria-label','Open navigation');
+      nav.classList.remove('open');
+      menuButton.setAttribute('aria-expanded', 'false');
+      menuButton.setAttribute('aria-label', 'Open navigation');
     }));
   }
 
   if (path.includes('/ai-support-demo/')) {
     document.addEventListener('click', event => {
       if (!event.target || event.target.id !== 'buildDemo') return;
-      const input = document.getElementById('businessUrl'); if (!input) return;
-      const value = input.value.trim(); if (value && !/^https?:\/\//i.test(value)) input.value = 'https://' + value;
+      const input = document.getElementById('businessUrl');
+      if (!input) return;
+      const value = input.value.trim();
+      if (value && !/^https?:\/\//i.test(value)) input.value = 'https://' + value;
     }, true);
   }
 
-  if (path.includes('/local-visibility-audit/') && !path.includes('/purchase/')) {
+  if (path.includes('/local-visibility-audit/') && !path.includes('/purchase/') && !path.includes('/report/') && !path.includes('/onboarding/') && !path.includes('/demo/')) {
     document.querySelectorAll('.audit-price-card .btn-primary, .audit-hero .hero-actions .btn-primary').forEach(link => {
       link.textContent = link.closest('.audit-price-card') ? 'Choose My Audit & Pay' : 'Start My Audit';
-      link.setAttribute('href','purchase/');
+      link.setAttribute('href', 'purchase/');
     });
     const heroActions = document.querySelector('.audit-hero .hero-actions');
     if (heroActions && !heroActions.querySelector('[data-audit-demo]')) {
       const demo = document.createElement('a');
       demo.className = 'btn btn-secondary';
       demo.dataset.auditDemo = '1';
-      demo.href = '#included';
-      demo.textContent = 'Audit Demo Coming Next';
-      demo.setAttribute('aria-label','Audit demo is being connected to the live scanner');
+      demo.href = 'demo/';
+      demo.textContent = 'View Audit Demo';
+      demo.setAttribute('aria-label', 'View the Local Visibility Audit demo');
       heroActions.appendChild(demo);
     }
     const paymentNote = document.querySelector('.payment-note');
@@ -118,10 +122,16 @@
     });
   }
 
-  const year = document.getElementById('year'); if (year) year.textContent = new Date().getFullYear();
+  const year = document.getElementById('year');
+  if (year) year.textContent = new Date().getFullYear();
   const revealItems = document.querySelectorAll('.reveal');
   if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } }), {threshold:.12});
+    const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    }), { threshold: .12 });
     revealItems.forEach(item => observer.observe(item));
   } else revealItems.forEach(item => item.classList.add('visible'));
 })();
