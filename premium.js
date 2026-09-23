@@ -77,13 +77,14 @@
     form.addEventListener('submit', e => {
       e.preventDefault();
       if (!form.reportValidity()) return;
-      const v = id => document.getElementById(id).value.trim();
+      const v = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
       const subject = 'RunYourAI Business Consultation — ' + v('business');
       const body = [
         'Name: ' + v('name'),
         'Business or nonprofit: ' + v('business'),
         'Email: ' + v('email'),
         'Phone: ' + (v('phone') || 'Not provided'),
+        ...(document.getElementById('website') ? ['Website: ' + (v('website') || 'Not provided')] : []),
         '',
         'What I would like help with:',
         v('help')
