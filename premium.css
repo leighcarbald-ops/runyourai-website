@@ -217,3 +217,6 @@ img{max-width:100%;display:block}
 .back-row a:hover{color:#fff}
 @media(max-width:980px){.service-grid{grid-template-columns:1fr}.service-price-card{position:static}.service-features{grid-template-columns:1fr 1fr}.service-cta{grid-template-columns:1fr}.service-cta-actions{justify-content:flex-start}}
 @media(max-width:640px){.service-hero{padding:76px 0 62px}.service-copy h1{font-size:clamp(3rem,14vw,4.9rem)}.service-price-card{padding:24px}.service-features,.service-process{grid-template-columns:1fr}.service-cta{padding:25px}.service-price-card .service-price{font-size:4.4rem}}
+
+/* Legal pages */
+.privacy-shell{max-width:860px;padding:110px 0 90px}.privacy-shell h1{font-size:clamp(3rem,6vw,5.4rem);line-height:.96;letter-spacing:-.05em;margin:16px 0 30px}.privacy-shell h2{font-size:1.7rem;line-height:1.15;letter-spacing:-.025em;margin:38px 0 12px}.privacy-shell p,.privacy-shell li{color:var(--muted)}.privacy-shell a{color:#d7c5ff}.privacy-shell>p:first-of-type{color:#c9c4d0}
