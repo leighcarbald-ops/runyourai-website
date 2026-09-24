@@ -80,4 +80,74 @@
       showToast('Order details copied — paste them into Facebook.');
     });
   }
+
+  // Click/tap any portfolio image to open a larger lightbox view.
+  const lightboxImages = document.querySelectorAll(
+    '.photo-collage img, .gallery img, .bento img, .treat-card img, .editorial-media img'
+  );
+
+  if (lightboxImages.length) {
+    const overlay = document.createElement('div');
+    overlay.className = 'lightbox-overlay';
+    overlay.setAttribute('aria-hidden', 'true');
+    overlay.innerHTML = `
+      <div class="lightbox-dialog" role="dialog" aria-modal="true" aria-label="Expanded image">
+        <button class="lightbox-close" type="button" aria-label="Close enlarged image">&times;</button>
+        <div class="lightbox-inner">
+          <img class="lightbox-image" src="" alt="">
+          <div class="lightbox-caption"></div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    const expandedImage = overlay.querySelector('.lightbox-image');
+    const caption = overlay.querySelector('.lightbox-caption');
+    const closeButton = overlay.querySelector('.lightbox-close');
+    let lastTrigger = null;
+
+    const closeLightbox = () => {
+      overlay.classList.remove('is-open');
+      overlay.setAttribute('aria-hidden', 'true');
+      document.body.classList.remove('lightbox-open');
+      expandedImage.removeAttribute('src');
+      expandedImage.alt = '';
+      caption.textContent = '';
+      if (lastTrigger) lastTrigger.focus({preventScroll:true});
+    };
+
+    const openLightbox = img => {
+      lastTrigger = img;
+      expandedImage.src = img.currentSrc || img.src;
+      expandedImage.alt = img.alt || 'Lamb\'s Cakes creation';
+      caption.textContent = img.alt || '';
+      overlay.classList.add('is-open');
+      overlay.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('lightbox-open');
+      closeButton.focus();
+    };
+
+    lightboxImages.forEach(img => {
+      img.classList.add('lightbox-trigger');
+      img.tabIndex = 0;
+      img.setAttribute('role', 'button');
+      img.setAttribute('aria-label', (img.alt ? img.alt + '. ' : '') + 'Open larger image');
+      img.addEventListener('click', () => openLightbox(img));
+      img.addEventListener('keydown', event => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          openLightbox(img);
+        }
+      });
+    });
+
+    closeButton.addEventListener('click', closeLightbox);
+    overlay.addEventListener('click', event => {
+      if (event.target === overlay) closeLightbox();
+    });
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && overlay.classList.contains('is-open')) closeLightbox();
+    });
+  }
+
 })();
