@@ -51,6 +51,12 @@
       'Quantity / servings: ' + (value('quantity') || 'Not entered yet'),
       'Theme / colors: ' + (value('theme') || 'Not entered yet'),
       'Flavor ideas: ' + (value('flavor') || 'Not entered yet'),
+      'Inspiration image: ' + (() => {
+        const fileInput = document.getElementById('inspirationImage');
+        return fileInput && fileInput.files && fileInput.files[0]
+          ? fileInput.files[0].name + ' (attach this photo when you message)'
+          : 'None selected';
+      })(),
       'Other details: ' + (value('notes') || 'None yet'),
       '',
       'Can you let me know availability and pricing?'
@@ -62,6 +68,53 @@
     };
 
     form.addEventListener('input', updatePreview);
+
+    const inspirationInput = document.getElementById('inspirationImage');
+    const inspirationPreview = document.getElementById('inspirationPreview');
+    const inspirationPreviewImage = document.getElementById('inspirationPreviewImage');
+    const inspirationFileName = document.getElementById('inspirationFileName');
+    const removeInspiration = document.getElementById('removeInspiration');
+    let inspirationObjectUrl = '';
+
+    const clearInspiration = () => {
+      if (inspirationObjectUrl) URL.revokeObjectURL(inspirationObjectUrl);
+      inspirationObjectUrl = '';
+      if (inspirationInput) inspirationInput.value = '';
+      if (inspirationPreviewImage) inspirationPreviewImage.removeAttribute('src');
+      if (inspirationFileName) inspirationFileName.textContent = '';
+      if (inspirationPreview) inspirationPreview.hidden = true;
+      updatePreview();
+    };
+
+    if (inspirationInput && inspirationPreview && inspirationPreviewImage && inspirationFileName) {
+      inspirationInput.addEventListener('change', () => {
+        const file = inspirationInput.files && inspirationInput.files[0];
+        if (!file) {
+          clearInspiration();
+          return;
+        }
+        const allowed = ['image/jpeg','image/png','image/webp'];
+        if (!allowed.includes(file.type)) {
+          showToast('Please choose a JPG, PNG, or WebP image.');
+          clearInspiration();
+          return;
+        }
+        if (file.size > 5 * 1024 * 1024) {
+          showToast('Please choose an image smaller than 5 MB.');
+          clearInspiration();
+          return;
+        }
+        if (inspirationObjectUrl) URL.revokeObjectURL(inspirationObjectUrl);
+        inspirationObjectUrl = URL.createObjectURL(file);
+        inspirationPreviewImage.src = inspirationObjectUrl;
+        inspirationFileName.textContent = file.name;
+        inspirationPreview.hidden = false;
+        updatePreview();
+      });
+    }
+
+    if (removeInspiration) removeInspiration.addEventListener('click', clearInspiration);
+
     updatePreview();
 
     const copyBtn = document.getElementById('copyOrder');
