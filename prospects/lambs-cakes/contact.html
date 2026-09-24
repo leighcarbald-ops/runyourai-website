@@ -20,9 +20,23 @@
 <div class="field"><label for="orderType">What would you like?</label><select id="orderType" name="orderType"><option value="">Choose a starting point</option><option>Custom cake</option><option>Cupcakes</option><option>Cake pops</option><option>Chocolate pretzels</option><option>Pie / dessert</option><option>Cookies / decorated treats</option><option>Other custom idea</option></select></div>
 <div class="field"><label for="quantity">Quantity / servings</label><input id="quantity" name="quantity" placeholder="Example: about 20 guests"></div>
 <div class="field"><label for="flavor">Flavor ideas</label><input id="flavor" name="flavor" placeholder="Example: chocolate, vanilla, open to ideas"></div>
-<div class="field full"><label for="theme">Theme, colors or inspiration</label><input id="theme" name="theme" placeholder="Example: sage, cream and terracotta"></div>
+<div class="field full"><label for="theme">Theme, colors or inspiration</label><input id="theme" name="theme" placeholder="Example: woodland, soft sage and cream"></div>
+<div class="field full inspiration-field">
+<label for="inspirationImage">Inspiration image <span class="optional-label">(optional)</span></label>
+<label class="upload-box" for="inspirationImage">
+<span class="upload-icon" aria-hidden="true">↑</span>
+<span class="upload-copy"><strong>Upload an inspiration photo</strong><small>Show the style, colors, theme, or design you have in mind.</small><small>JPG, PNG, or WebP · up to 5 MB</small></span>
+</label>
+<input id="inspirationImage" name="inspirationImage" class="file-input" type="file" accept="image/jpeg,image/png,image/webp">
+<div id="inspirationPreview" class="inspiration-preview" hidden>
+<img id="inspirationPreviewImage" alt="Selected inspiration preview">
+<div><strong id="inspirationFileName"></strong><span>Selected for this order request</span></div>
+<button id="removeInspiration" class="remove-upload" type="button">Remove</button>
+</div>
+<p class="field-help">Demo preview: selecting a photo shows how the live order form will work. This demo does not upload or send the image.</p>
+</div>
 <div class="field full"><label for="notes">Anything else?</label><textarea id="notes" name="notes" placeholder="Add any other details you want Lamb's Cakes to know."></textarea></div>
-<p class="form-note">This demo does not store or send these details. Use “Copy order details,” then paste the message into Facebook.</p>
+<p class="form-note">This demo does not store or send these details. Use “Copy order details,” then paste the message into Facebook. If you selected an inspiration image, attach that photo to the Facebook message too.</p>
 <div id="orderPreview" class="order-preview" aria-live="polite"></div>
 <div class="form-actions"><button id="copyOrder" class="btn btn-primary" type="button">Copy order details</button><a class="btn btn-gold" href="https://www.facebook.com/jadelambcakes/" target="_blank" rel="noopener noreferrer">Open Facebook ↗</a></div>
 <div class="status" aria-live="polite"></div>
