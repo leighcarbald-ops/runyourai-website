@@ -220,3 +220,23 @@ img{max-width:100%;display:block}
 
 /* Legal pages */
 .privacy-shell{max-width:860px;padding:110px 0 90px}.privacy-shell h1{font-size:clamp(3rem,6vw,5.4rem);line-height:.96;letter-spacing:-.05em;margin:16px 0 30px}.privacy-shell h2{font-size:1.7rem;line-height:1.15;letter-spacing:-.025em;margin:38px 0 12px}.privacy-shell p,.privacy-shell li{color:var(--muted)}.privacy-shell a{color:#d7c5ff}.privacy-shell>p:first-of-type{color:#c9c4d0}
+
+/* Free Small Business AI Toolkit */
+.toolkit-hero .service-price-card .service-price small{font-size:1rem;letter-spacing:0;color:var(--muted);font-weight:700}
+.toolkit-outcomes{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.toolkit-list{display:grid;gap:20px}
+.toolkit-card{border:1px solid var(--line);border-radius:26px;padding:30px;background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.014));position:relative;overflow:hidden}
+.toolkit-card:after{content:"";position:absolute;right:-110px;top:-110px;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(155,92,255,.10),transparent 68%);pointer-events:none}
+.toolkit-card-head{display:flex;gap:18px;align-items:flex-start;position:relative;z-index:1}
+.toolkit-number{display:grid;place-items:center;flex:0 0 48px;width:48px;height:48px;border-radius:14px;background:rgba(155,92,255,.11);border:1px solid rgba(155,92,255,.24);color:#d6c4ff;font-weight:900}
+.toolkit-card-head .offer-label{margin:2px 0 7px}
+.toolkit-card h3{font-size:clamp(1.8rem,3.5vw,2.7rem);line-height:1.04;letter-spacing:-.04em;margin:0}
+.toolkit-desc{color:var(--muted);max-width:920px;margin:20px 0 24px}
+.example-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.example-grid>div{border:1px solid rgba(255,255,255,.075);border-radius:16px;padding:17px;background:rgba(255,255,255,.02)}
+.example-grid b{display:block;color:#eee8ff;margin-bottom:6px}
+.example-grid span{display:block;color:#9f9aaa;font-size:.9rem}
+.toolkit-disclaimer{color:#858190;font-size:.82rem;max-width:920px;margin:18px 0 0}
+.toolkit-home-section{padding-top:0}
+@media(max-width:980px){.toolkit-outcomes{grid-template-columns:1fr 1fr}.example-grid{grid-template-columns:1fr}}
+@media(max-width:640px){.toolkit-outcomes{grid-template-columns:1fr}.toolkit-card{padding:22px}.toolkit-card-head{gap:13px}.toolkit-number{width:42px;height:42px;flex-basis:42px}}
