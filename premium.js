@@ -96,7 +96,13 @@
   }
 
   document.documentElement.classList.add('js');
-  document.documentElement.classList.add('js');
+  document.querySelectorAll('[data-toolkit-download]').forEach(link => {
+    link.addEventListener('click', () => {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'toolkit_download', resource: 'free_small_business_ai_toolkit' });
+    });
+  });
+
   const observer = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
