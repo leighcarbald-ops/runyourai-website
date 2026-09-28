@@ -96,6 +96,7 @@
   }
 
   document.documentElement.classList.add('js');
+  document.documentElement.classList.add('js');
   const observer = 'IntersectionObserver' in window ? new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
