@@ -1,3 +1,7 @@
+# REQUIRED FIRST READ — RunYourAI Master Website Standard
+
+Before **any** website or mockup work, READ [WEBSITE-MASTER-STANDARD.md](WEBSITE-MASTER-STANDARD.md) in full, then the North Star and Production QC documents linked below. **Do not claim QC PASS without visually rendering and inspecting every primary page at mobile, tablet and desktop widths, recording evidence.** If rendering cannot be performed, report VISUAL QC: NOT VERIFIED and NOT READY FOR APPROVAL.
+
 # RunYourAI Website Build Instructions — All Agents
 
 These requirements apply to **every website in this repository**, including a prospect mockup, speculative demo, prototype, redesign, and paid production website. **A demo is a sales asset, not a lower-quality website.**
