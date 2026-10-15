@@ -1,3 +1,7 @@
+# FIRST STEP — MANDATORY MASTER WEBSITE RULES
+
+Read [WEBSITE-MASTER-STANDARD.md](WEBSITE-MASTER-STANDARD.md) **first** before making or judging ANY website, prospect demo, mockup or edit. Also read AGENTS.md and both existing QC documents. Visual inspection of rendered pages at ~360px/~768px/~1440px with evidence is a required release gate, not optional. Without screenshots/browser inspection mark NOT VERIFIED; do not say finished.
+
 # Claude Code / CCR / Hermes / Harvey: RunYourAI Website Rules
 
 **MANDATORY:** Read [AGENTS.md](AGENTS.md), [docs/WEBSITE-NORTH-STAR-QC.md](docs/WEBSITE-NORTH-STAR-QC.md), and [WEBSITE-QC-STANDARD.md](WEBSITE-QC-STANDARD.md) **before any website planning, implementation, redesign or QC**.
