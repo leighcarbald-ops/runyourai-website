@@ -1,3 +1,11 @@
+# Master standard prerequisite
+
+- [ ] Read and apply [WEBSITE-MASTER-STANDARD.md](../WEBSITE-MASTER-STANDARD.md)
+- [ ] **Actually render and visually inspect every primary page** at ~360px, ~768px and ~1440px (code review alone is insufficient)
+- [ ] Include labeled screenshots/preview evidence of mobile, tablet and desktop inspection
+- [ ] Re-check after fixing visual defects; record visual status PASS / FAIL / NOT VERIFIED
+- [ ] If visual inspection unavailable, mark NOT READY FOR APPROVAL
+
 # Website change / demo review
 
 ## Scope
