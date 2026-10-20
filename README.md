@@ -20,7 +20,7 @@ Official public marketing website for RunYourAI.
 
 ## Current pre-launch blockers
 
-1. Upload the supplied RunYourAI transparent logo asset at `assets/runyourai-logo.png` so the exact approved artwork is used. The page has a temporary styled-text fallback if the binary asset is absent.
+1. Logo assets are supplied from the approved transparent PNG upload: `assets/runyourai-logo.webp` (690 × 230, lossless after resizing) is used for page logos, and `assets/runyourai-logo-social.png` (1200 × 400) is used for social and Organization metadata. Both preserve the uploaded artwork, full alpha transparency, and 3:1 aspect ratio. The older `assets/runyourai-logo.png` is retained as a source reference and is no longer requested by pages.
 2. Create or identify a dedicated public AI Support Bot demo widget key for the fictional demo business, then place that public key in `ai-support-demo/index.html` under `data-widget-key`. The worker origin is already set from the verified production deployment.
 3. Replace/review the temporary privacy placeholder before the custom-domain launch.
 4. Complete final mobile/desktop CTA testing after the live demo key and logo are in place.
