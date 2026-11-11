@@ -8,6 +8,7 @@ on:
       - 'privacy/retention-monitor.mjs'
       - 'privacy/cascade-preview.mjs'
       - 'privacy/cascade-preview.test.mjs'
+      - 'privacy/retention-recovery.test.mjs'
       - 'privacy/migrations/**'
       - '.github/workflows/retention-preview-tests.yml'
   push:
