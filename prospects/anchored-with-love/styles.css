@@ -8,3 +8,7 @@
 @media(max-width:1000px){.policy-layout{grid-template-columns:1fr;gap:24px}.policy-layout aside nav{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px 20px;padding-bottom:24px;border-bottom:1px solid var(--line)}}
 @media(max-width:900px){.main-nav{min-height:85px;flex-wrap:wrap;padding:15px 0;gap:0}.menu{display:block;background:transparent;color:var(--green);border:1px solid #a2b3a4;padding:11px 15px;font:inherit;font-size:.85rem;min-height:44px}#navlinks{display:none;width:100%;flex-direction:column;padding-top:20px;gap:0}#navlinks.open{display:flex}#navlinks a{padding:12px 0}#navlinks .nav-give{margin-top:8px;max-width:160px}}
 @media(max-width:760px){.program-facts{gap:12px}.program-facts dd,.hero .program-facts dd{font-size:.85rem}.footer-bottom nav{font-size:.875rem;gap:4px 16px}.policy-layout aside nav{grid-template-columns:1fr 1fr;font-size:.875rem}.policy-layout{padding-block:35px}.social{flex-wrap:wrap;gap:10px 24px}}
+
+/* Preserve card hierarchy while exposing consecutive heading levels. */
+.program h2{font-size:1.65rem;letter-spacing:normal;min-height:55px}.note h2{font-size:1.3rem;letter-spacing:normal}.check{min-height:44px}#form-status{overflow-wrap:anywhere}
+@media(max-width:760px){.program h2{min-height:0}}
