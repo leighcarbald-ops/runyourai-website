@@ -1,9 +1,8 @@
 /**
- * Standalone Cloudflare scheduled retention monitor.
- * NOT deployed or connected to production. No DELETE/UPDATE statements.
- * A cron trigger must be configured explicitly in a future reviewed deployment.
+ * Standalone Cloudflare scheduled retention monitor, never deployed by this PR.
+ * Aggregate-only, read-only, fail-closed; no destructive SQL.
  */
-import { previewSupportRetention, previewVisibilityRetention } from './retention-preview.mjs';
+import { previewCascadeSafeConversations, previewCascadeSafeAudits } from './cascade-preview.mjs';
 
 export default {
   async fetch() {
@@ -16,21 +15,23 @@ export default {
     if (!env.SUPPORT_DB?.prepare || !env.VISIBILITY_DB?.prepare) {
       throw new Error('Both isolated D1 bindings are required');
     }
+    if (!ctx?.waitUntil) throw new TypeError('Scheduled execution context required');
     ctx.waitUntil((async () => {
       const [support, visibility] = await Promise.all([
-        previewSupportRetention(env.SUPPORT_DB),
-        previewVisibilityRetention(env.VISIBILITY_DB),
+        previewCascadeSafeConversations(env.SUPPORT_DB),
+        previewCascadeSafeAudits(env.VISIBILITY_DB),
       ]);
-      // Aggregate counts only. Never log personal data or record identifiers.
       console.log(JSON.stringify({
-        event: 'retention_preview',
+        event: 'retention_cascade_preview',
         mode: 'DRY_RUN_ONLY',
         support: {
-          conversationCandidates: support.conversationCandidates,
-          resolvedTicketCandidates: support.resolvedTicketCandidates,
-          knowledgeGapCandidates: support.knowledgeGapCandidates,
+          conversationCandidates: support.candidates,
+          cascade: support.cascade,
         },
-        visibility: { auditCandidates: visibility.auditCandidates },
+        visibility: {
+          auditCandidates: visibility.candidates,
+          cascade: visibility.cascade,
+        },
       }));
     })());
   },
