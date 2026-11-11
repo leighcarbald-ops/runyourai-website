@@ -4,6 +4,8 @@ on:
     paths:
       - 'privacy/retention-preview.mjs'
       - 'privacy/retention-preview.test.mjs'
+      - 'privacy/retention-integration.test.mjs'
+      - 'privacy/retention-monitor.mjs'
       - '.github/workflows/retention-preview-tests.yml'
   push:
     paths:
@@ -19,6 +21,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '24'
       - name: Run read-only retention tests
-        run: node --test privacy/retention-preview.test.mjs
+        run: node --test privacy/*.test.mjs
