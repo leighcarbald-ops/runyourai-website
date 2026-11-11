@@ -1,0 +1,24 @@
+name: Retention preview safety tests
+on:
+  pull_request:
+    paths:
+      - 'privacy/retention-preview.mjs'
+      - 'privacy/retention-preview.test.mjs'
+      - '.github/workflows/retention-preview-tests.yml'
+  push:
+    paths:
+      - 'privacy/retention-preview.mjs'
+      - 'privacy/retention-preview.test.mjs'
+      - '.github/workflows/retention-preview-tests.yml'
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run read-only retention tests
+        run: node --test privacy/retention-preview.test.mjs
