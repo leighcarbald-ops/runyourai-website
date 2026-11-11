@@ -6,6 +6,9 @@ on:
       - 'privacy/retention-preview.test.mjs'
       - 'privacy/retention-integration.test.mjs'
       - 'privacy/retention-monitor.mjs'
+      - 'privacy/cascade-preview.mjs'
+      - 'privacy/cascade-preview.test.mjs'
+      - 'privacy/migrations/**'
       - '.github/workflows/retention-preview-tests.yml'
   push:
     paths:
