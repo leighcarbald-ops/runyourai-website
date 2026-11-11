@@ -16,6 +16,11 @@ function supportFixture() {
     CREATE TABLE tickets (id TEXT PRIMARY KEY, tenant_id TEXT, conversation_id TEXT, status TEXT, updated_at TEXT);
     CREATE TABLE schedule_requests (id TEXT PRIMARY KEY, tenant_id TEXT, conversation_id TEXT, ticket_id TEXT, status TEXT, updated_at TEXT);
     CREATE TABLE knowledge_gaps (id TEXT PRIMARY KEY, status TEXT, last_seen_at TEXT);
+    CREATE TABLE messages (id TEXT PRIMARY KEY, tenant_id TEXT, conversation_id TEXT);
+    CREATE TABLE notification_outbox (id TEXT PRIMARY KEY, tenant_id TEXT, ticket_id TEXT, status TEXT);
+    CREATE TABLE retention_tenant_policies (tenant_id TEXT PRIMARY KEY, enabled INTEGER, conversation_days INTEGER, ticket_days INTEGER);
+    CREATE TABLE retention_legal_holds (id TEXT, tenant_id TEXT, record_type TEXT, record_id TEXT, released_at TEXT);
+    INSERT INTO retention_tenant_policies VALUES ('a',1,30,90);
   `);
   const old = '2025-01-01 00:00:00';
   const fresh = '2099-01-01 00:00:00';
@@ -43,6 +48,8 @@ function visibilityFixture() {
   db.exec(`
     CREATE TABLE audits (id TEXT PRIMARY KEY, status TEXT, updated_at TEXT, paid_at TEXT, customer_email TEXT);
     CREATE TABLE reports (id TEXT PRIMARY KEY, audit_id TEXT, status TEXT);
+    CREATE TABLE audit_findings (id TEXT PRIMARY KEY, audit_id TEXT);
+    CREATE TABLE provider_events (id TEXT PRIMARY KEY, audit_id TEXT);
   `);
   const old = '2025-01-01 00:00:00';
   const fresh = '2099-01-01 00:00:00';
@@ -100,6 +107,8 @@ test('scheduled monitor produces aggregate preview without mutation', async () =
     await Promise.all(tasks);
     assert.equal(logs.length, 1);
     assert.equal(logs[0].support.conversationCandidates, 2);
+    assert.equal(logs[0].mode, 'DRY_RUN_ONLY');
+    assert.deepEqual(logs[0].support.cascade, { messages: 0, tickets: 1, appointments: 0, notifications: 0 });
     assert.equal(logs[0].visibility.auditCandidates, 1);
     assert.ok(!JSON.stringify(logs).includes('customer@example.com'));
     assert.equal(support.prepare('SELECT COUNT(*) AS n FROM conversations').get().n, 7);
